@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - oracle
+    environment:
+      DB_HOST: oracle
+      DB_USER: system
+      DB_PASSWORD: oracle
+      DB_NAME: XEPDB1
+      DB_PORT: 1521
+      JWT_SECRET: secreta123
+    volumes:
+      - .:/app
+    command: ["sh", "-c", "npx sequelize-cli db:migrate && node src/app.js"]
+
+  oracle:
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    container_name: oracle-db
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PWD: oracle
+    shm_size: 1g
