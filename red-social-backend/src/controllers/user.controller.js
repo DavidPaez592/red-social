@@ -19,6 +19,7 @@ const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email }, attributes: ["id", "name", "email", "password"] });
+    console.log("Usuario encontrado:", user); // Agrega esto
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: "Credenciales incorrectas" });

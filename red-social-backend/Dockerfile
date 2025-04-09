@@ -1,19 +1,17 @@
 FROM node:18
 
-# Crear carpeta app
+# Instalar netcat
+RUN apt-get update && apt-get install -y netcat-openbsd
+
 WORKDIR /app
 
-# Copiar archivos
 COPY package*.json ./
-RUN npm install
+RUN npm cache clean --force && npm install --force
+
 
 COPY . .
 RUN chmod +x ./start.sh
 
-
-# Expone el puerto 3000
 EXPOSE 3000
 
-# Comando para iniciar la app
 CMD ["sh", "./start.sh"]
-

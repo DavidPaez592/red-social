@@ -16,7 +16,7 @@ services:
       JWT_SECRET: secreta123
     volumes:
       - .:/app
-    command: ["sh", "-c", "npx sequelize-cli db:migrate && node src/app.js"]
+    command: ["sh", "./start.sh"]
 
   oracle:
     image: container-registry.oracle.com/database/express:21.3.0-xe
