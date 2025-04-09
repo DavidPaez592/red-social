@@ -22,7 +22,6 @@ app.use(express.json());
 
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
-app.use("/posts", postRoutes); // ✅ Esto asegura que /posts/my-posts funcione
 
 const PORT = process.env.PORT || 3000;
 
