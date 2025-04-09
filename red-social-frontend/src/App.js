@@ -18,12 +18,6 @@ function App() {
   };
 
   const menuItems = [
-    {
-      label: user ? "Inicio" : "Iniciar Sesión",
-      key: "/",
-      icon: <LoginOutlined />,
-      onClick: () => navigate("/"),
-    },
     user && {
       label: "Perfil",
       key: "/perfil",

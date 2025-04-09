@@ -2,6 +2,7 @@
 
 echo "📦 Instalando dependencias dentro del contenedor..."
 npm install
+npm install --save-dev jest supertest
 
 echo "⏳ Esperando a que Oracle DB esté disponible..."
 
