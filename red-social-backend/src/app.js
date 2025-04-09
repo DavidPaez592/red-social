@@ -11,6 +11,7 @@ const app = express();
 
 // Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/posts", postRoutes); // ✅ Esto asegura que /posts/my-posts funcione
 
 // Habilita CORS
 app.use(cors({

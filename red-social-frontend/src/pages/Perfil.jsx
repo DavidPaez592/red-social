@@ -1,31 +1,53 @@
-import { useEffect, useState } from "react";
-import { Card, Typography, Avatar, Spin } from "antd";
+import { useState, useEffect } from "react";
+import { Card, Typography, Avatar, Button, Input, message, List } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import useUserStore from "../store/user";
 import api from "../api/api";
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Text } = Typography;
+const { TextArea } = Input;
 
 export default function Perfil() {
   const { user, token } = useUserStore();
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
   const [myPosts, setMyPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+
+  const fetchMyPosts = async () => {
+    try {
+      const res = await api.get("/posts/my-posts", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMyPosts(res.data);
+    } catch (err) {
+      console.error("Error al obtener tus publicaciones", err);
+    }
+  };
 
   useEffect(() => {
-    const fetchMyPosts = async () => {
-      try {
-        const res = await api.get("/posts/my-posts", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setMyPosts(res.data);
-      } catch (error) {
-        console.error("Error al obtener tus publicaciones", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMyPosts();
+    if (token) fetchMyPosts();
   }, [token]);
+
+  const handleCreatePost = async () => {
+    if (!content.trim()) return message.warning("El contenido no puede estar vacío");
+
+    setLoading(true);
+    try {
+      await api.post(
+        "/posts",
+        { content },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setContent("");
+      message.success("Publicación creada");
+      fetchMyPosts(); // refrescar lista de publicaciones
+    } catch (error) {
+      console.error(error);
+      message.error("Error al crear publicación");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!user) {
     return (
@@ -35,23 +57,22 @@ export default function Perfil() {
     );
   }
 
-  if (loading) {
-    return (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-        <Spin size="large" />
-      </div>
-    );
-  }
-
   return (
-    <div style={{ padding: "20px", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+    <div
+      style={{
+        padding: 40,
+        backgroundColor: "#f5f5f5",
+        minHeight: "100vh",
+      }}
+    >
       <Card
         style={{
-          width: 350,
+          width: 400,
           margin: "0 auto",
           textAlign: "center",
           borderRadius: "10px",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          marginBottom: 30,
         }}
       >
         <Avatar
@@ -67,28 +88,45 @@ export default function Perfil() {
         </div>
       </Card>
 
-      <Title level={4} style={{ marginTop: "40px", textAlign: "center" }}>
-        Mis publicaciones
-      </Title>
+      {/* Crear publicación */}
+      <Card style={{ width: 400, margin: "0 auto", marginBottom: 20 }}>
+        <Title level={4}>Crear publicación</Title>
+        <TextArea
+          rows={4}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="¿Qué estás pensando?"
+          maxLength={280}
+        />
+        <Button
+          type="primary"
+          loading={loading}
+          onClick={handleCreatePost}
+          style={{ marginTop: 10 }}
+          block
+        >
+          Publicar
+        </Button>
+      </Card>
 
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px", marginTop: 20 }}>
-        {myPosts.map((post) => (
-          <Card
-            key={post.id}
-            style={{
-              width: "100%",
-              maxWidth: "500px",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-              padding: "10px",
-              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <Paragraph>{post.content}</Paragraph>
-            <Text>{post.likes} Likes</Text>
-          </Card>
-        ))}
-      </div>
+      {/* Lista de publicaciones propias */}
+      <Card
+        title="Tus publicaciones"
+        style={{ width: 400, margin: "0 auto" }}
+        bordered={false}
+      >
+        <List
+          dataSource={myPosts}
+          renderItem={(item) => (
+            <List.Item>
+              <Text>{item.content}</Text>
+              <Text type="secondary" style={{ marginLeft: "auto" }}>
+                {item.likes} ❤️
+              </Text>
+            </List.Item>
+          )}
+        />
+      </Card>
     </div>
   );
 }

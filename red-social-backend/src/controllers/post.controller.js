@@ -55,6 +55,5 @@ const listMyPosts = async (req, res) => {
   }
 };
 
-
 module.exports = { createPost, listPosts, likePost, listMyPosts };
 
