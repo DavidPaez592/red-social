@@ -41,4 +41,20 @@ const likePost = async (req, res) => {
   }
 };
 
-module.exports = { createPost, listPosts, likePost };
+// Listar publicaciones del usuario autenticado (para perfil)
+const listMyPosts = async (req, res) => {
+  try {
+    const posts = await Post.findAll({
+      where: { userId: req.user.id },
+      include: { model: User, attributes: ["name"] },
+      order: [["createdAt", "DESC"]],
+    });
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener tus publicaciones", error });
+  }
+};
+
+
+module.exports = { createPost, listPosts, likePost, listMyPosts };
+

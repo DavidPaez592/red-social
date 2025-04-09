@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   backend:
-    build: .
+    build: ./red-social-backend
     ports:
       - "3000:3000"
     depends_on:
@@ -15,7 +15,7 @@ services:
       DB_PORT: 1521
       JWT_SECRET: secreta123
     volumes:
-      - .:/app
+      - ./red-social-backend:/app
     command: ["sh", "./start.sh"]
 
   oracle:
@@ -26,3 +26,10 @@ services:
     environment:
       ORACLE_PWD: oracle
     shm_size: 1g
+
+  frontend:
+    build: ./red-social-frontend
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend

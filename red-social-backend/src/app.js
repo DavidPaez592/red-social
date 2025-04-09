@@ -1,15 +1,20 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors"); // 👈 importa cors
+const cors = require("cors");
 const sequelize = require("./config/database");
 const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./config/swagger");
 
-const app = express();
+const app = express(); // 👈 esto debe ir antes de usar app
 
-// 👇 habilita CORS para que el frontend pueda hacer peticiones
+// Swagger
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// Habilita CORS
 app.use(cors({
-  origin: 'http://localhost:3001', // donde corre tu frontend
+  origin: 'http://localhost:3001',
   credentials: true
 }));
 

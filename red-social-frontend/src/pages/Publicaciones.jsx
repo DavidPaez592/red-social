@@ -18,6 +18,8 @@ export default function Publicaciones() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPosts(res.data);
+        console.log(res.data); // <-- esto te muestra que viene como "User"
+
       } catch (error) {
         console.error("Error al obtener publicaciones", error);
       } finally {
@@ -35,6 +37,8 @@ export default function Publicaciones() {
       headers: { Authorization: `Bearer ${token}` },
     });
     setPosts(res.data);
+    console.log(res.data); // <-- esto te muestra que viene como "User"
+
   };
 
   if (loading) {
@@ -86,7 +90,7 @@ export default function Publicaciones() {
             {/* Sección superior con avatar y usuario */}
             <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
               <Avatar icon={<UserOutlined />} />
-              <Text strong>{post.user?.name || "Usuario"}</Text>
+              <Text strong>{post.User?.name || "Usuario"}</Text>
             </div>
 
             {/* Contenido de la publicación */}

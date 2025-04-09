@@ -38,13 +38,17 @@ const login = async (req, res) => {
 
 
 // Obtener perfil del usuario autenticado
+// controllers/user.controller.js (o donde tengas tu lógica de perfil)
 const getProfile = async (req, res) => {
   try {
-    const user = await User.findByPk(req.user.id, { attributes: ["id", "name", "email"] });
+    const user = await User.findByPk(req.user.id, {
+      attributes: ["id", "name", "email", "description"], // 👈 Incluye description
+    });
     res.json(user);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener perfil", error });
+    res.status(500).json({ error: "Error al obtener el perfil" });
   }
 };
+
 
 module.exports = { register, login, getProfile };
