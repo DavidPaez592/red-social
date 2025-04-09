@@ -7,7 +7,7 @@ const postRoutes = require("./routes/post.routes");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
 
-const app = express(); // 👈 esto debe ir antes de usar app
+const app = express();
 
 // Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

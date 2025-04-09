@@ -1,8 +1,10 @@
 RED SOCIAL
+
 Este proyecto es una red social sencilla que permite a los usuarios interactuar, usando una arquitectura
 cliente-servidor. Está dividido en un frontend en React y un backend en Node.js con Express. Todo se puede
 levantar con Docker.
----
+
+
 TECNOLOGÍAS UTILIZADAS
 BACKEND (red-social-backend)
 - Node.js v22.14
@@ -15,29 +17,35 @@ BACKEND (red-social-backend)
 - cors ^2.8.5
 - swagger-jsdoc y swagger-ui-express (Documentación de la API)
 - nodemon ^3.1.9 (Modo desarrollo)
+  
 FRONTEND (red-social-frontend)
 - React con Create React App
 - HTML, CSS, JS (moderno)
 - Docker y nginx para producción
----
+
 ESTRUCTURA DEL PROYECTO
 red-social/
 --- red-social-backend/ # API RESTful con Express
 --- red-social-frontend/ # Interfaz de usuario con React
 --- docker-compose.yml # Orquestación de servicios
 --- README.md
----
+
+
 CÓMO LEVANTAR EL PROYECTO
 CON DOCKER (recomendado)
 1. Clona el repositorio:
  git clone https://github.com/DavidPaez592/red-social.git
  cd red-social
-2. Crea un archivo .env dentro de red-social-backend con tus variables (ver ejemplo más abajo).
-3. Ejecuta:
+
+1. Crea un archivo .env dentro de red-social-backend con tus variables (ver ejemplo más abajo).
+
+2. Ejecuta:
  docker compose down -v && docker compose up --build
-4. Accede a:
+
+1. Accede a:
  - Frontend: http://localhost:3001
  - Backend: http://localhost:3000
+ Para acceder a la documentación de la API, se debe tener el backend levantado.
  - Documentacion : http://localhost:3000/api-docs/#/
 
 

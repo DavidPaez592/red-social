@@ -18,7 +18,7 @@ export default function Publicaciones() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPosts(res.data);
-        console.log(res.data); // <-- esto te muestra que viene como "User"
+        console.log(res.data); // <-- esto nos muestra como viene el "User"
 
       } catch (error) {
         console.error("Error al obtener publicaciones", error);
@@ -37,7 +37,7 @@ export default function Publicaciones() {
       headers: { Authorization: `Bearer ${token}` },
     });
     setPosts(res.data);
-    console.log(res.data); // <-- esto te muestra que viene como "User"
+    console.log(res.data);
 
   };
 
