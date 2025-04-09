@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+RED SOCIAL
+Este proyecto es una red social sencilla que permite a los usuarios interactuar, usando una arquitectura
+cliente-servidor. Está dividido en un frontend en React y un backend en Node.js con Express. Todo se puede
+levantar con Docker.
+---
+TECNOLOGÍAS UTILIZADAS
+BACKEND (red-social-backend)
+- Node.js v22.14
+- Express ^5.1.0
+- Sequelize ^6.37.7 (ORM)
+- OracleDB ^6.8.0 (Base de datos Oracle)
+- jsonwebtoken ^9.0.2 (JWT para autenticación)
+- bcryptjs ^3.0.2 (Encriptación de contraseñas)
+- dotenv ^16.4.7 (Variables de entorno)
+- cors ^2.8.5
+- swagger-jsdoc y swagger-ui-express (Documentación de la API)
+- nodemon ^3.1.9 (Modo desarrollo)
+FRONTEND (red-social-frontend)
+- React con Create React App
+- HTML, CSS, JS (moderno)
+- Docker y nginx para producción
+---
+ESTRUCTURA DEL PROYECTO
+red-social/
+--- red-social-backend/ # API RESTful con Express
+--- red-social-frontend/ # Interfaz de usuario con React
+--- docker-compose.yml # Orquestación de servicios
+--- README.md
+---
+CÓMO LEVANTAR EL PROYECTO
+CON DOCKER (recomendado)
+1. Clona el repositorio:
+ git clone https://github.com/DavidPaez592/red-social.git
+ cd red-social
+2. Crea un archivo .env dentro de red-social-backend con tus variables (ver ejemplo más abajo).
+3. Ejecuta:
+ docker compose down -v && docker compose up --build
+4. Accede a:
+ - Frontend: http://localhost:3001
+ - Backend: http://localhost:3000
+ - Documentacion : http://localhost:3000/api-docs/#/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+VARIABLES DE ENTORNO (.env de ejemplo)
+DB_USER=system
+DB_PASSWORD=oracle
+DB_NAME=XEPDB1
+DB_HOST=oracle
+DB_PORT=1521
+JWT_SECRET=U8!k3Gz@fP2$wQ7mL0^ZbE5&nTsY
