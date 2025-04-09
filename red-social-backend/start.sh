@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "📦 Instalando dependencias dentro del contenedor..."
+npm install
+
 echo "⏳ Esperando a que Oracle DB esté disponible..."
 
 while ! nc -z oracle 1521; do
